@@ -10,7 +10,6 @@ from datetime import datetime
 chunks = ["Hello ", "from ", "OpenAI!"]
 
 def openai_chat_completion(model: ChatModel, messages: list[ChatCompletionMessageParam], temperature: float, max_tokens: float, stream: bool) -> Generator[ChatCompletionChunk, None, None]:
-    print('now', datetime.now().timestamp())
     for index, chunk in enumerate(chunks):
         yield ChatCompletionChunk(
             id=str(index),

@@ -14,8 +14,8 @@ class Message(BaseModel):
 
 class ChatRequest(BaseModel):
     messages: list[Message]
-    temperature: float | None
-    max_tokens: int | None
+    temperature: Optional[float]
+    max_tokens: Optional[int]
 
 class ChatResponse(BaseModel):
     model: str
@@ -36,8 +36,6 @@ class ChatStreamResponse(BaseModel):
 
 def get_chat_response(chat_request: ChatRequest) -> ChatResponse:
     response = stream_chat_response(chat_request)
-
-    print(response)
     
     content = ''
     for chunk in response.stream:
