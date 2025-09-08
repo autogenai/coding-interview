@@ -15,7 +15,7 @@ Content-Type: application/json
         }
     ],
     "temperature": 1,
-    "max_tokens": 1000,
+    "max_tokens": 1000
 }
 
 ### Chat Stream
@@ -35,5 +35,5 @@ Content-Type: application/json
         }
     ],
     "temperature": 1,
-    "max_tokens": 1000,
+    "max_tokens": 1000
 }
