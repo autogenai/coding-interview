@@ -16,9 +16,9 @@ const messageSchema = z.object({
 });
 
 export const chatRequestSchema = z.object({
-  messages: z.array(messageSchema),
-  temperature: z.number().optional(),
-  max_tokens: z.number().optional(),
+      messages: z.array(messageSchema),
+      temperature: z.number().optional(),
+      max_tokens: z.number().optional(),
 });
 type ChatRequest = z.infer<typeof chatRequestSchema>;
 
