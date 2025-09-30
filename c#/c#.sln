@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "llmservice", "llmservice\llmservice.csproj", "{35FE0483-699B-4F3A-AC71-90ECA09FDDBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35FE0483-699B-4F3A-AC71-90ECA09FDDBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35FE0483-699B-4F3A-AC71-90ECA09FDDBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35FE0483-699B-4F3A-AC71-90ECA09FDDBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35FE0483-699B-4F3A-AC71-90ECA09FDDBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {32922DA4-E57F-426A-A98C-7089C10075B8}
+	EndGlobalSection
+EndGlobal
