@@ -16,15 +16,16 @@ const messageSchema = z.object({
 });
 
 export const chatRequestSchema = z.object({
-      messages: z.array(messageSchema),
-      temperature: z.number().optional(),
-      max_tokens: z.number().optional(),
+  messages: z.array(messageSchema),
+  temperature: z.number().optional(),
+  max_tokens: z.number().optional(),
 });
 type ChatRequest = z.infer<typeof chatRequestSchema>;
 
 interface ChatResponse {
   model: string;
   content: string;
+  confidence?: number;
 }
 
 export interface Chunk {
@@ -45,29 +46,36 @@ export async function getChatResponse(
 
   return {
     model: "gpt-4o",
+    confidence: response.confidence,
     content,
   };
 }
 
-export async function streamChatResponse(
-  chatRequest: ChatRequest
-): Promise<{ model: string; stream: AsyncIterable<Chunk> }> {
+export async function streamChatResponse(chatRequest: ChatRequest): Promise<{
+  model: string;
+  confidence?: number;
+  stream: AsyncIterable<Chunk>;
+}> {
   try {
-    const stream = await openAiChatCompletion({
+    const { confidence, stream } = await openAiChatCompletion({
       model: "gpt-4o",
       messages: chatRequest.messages,
       stream: true,
       temperature: chatRequest.temperature,
       max_tokens: chatRequest.max_tokens,
     });
-    return { model: "gpt-4o", stream: chunksFromOpenAiStream(stream) };
+    return {
+      model: "gpt-4o",
+      confidence,
+      stream: chunksFromOpenAiStream(stream),
+    };
   } catch (e) {
     console.warn("Error streaming chat response from OpenAI", e);
 
     const systemMessage = chatRequest.messages.find(
       (message) => message.role === "system"
     );
-    const iterator = await bedrockChatCompletion({
+    const { confidence, stream } = await bedrockChatCompletion({
       modelId: "anthropic.claude-3-sonnet-20240229-v1:0",
       system: systemMessage
         ? [
@@ -90,11 +98,12 @@ export async function streamChatResponse(
       inferenceConfig: {
         temperature: chatRequest.temperature,
         maxTokens: chatRequest.max_tokens,
-      }
+      },
     });
     return {
       model: "claude-3-sonnet",
-      stream: chunksFromBedrockStream(iterator),
+      confidence,
+      stream: chunksFromBedrockStream(stream),
     };
   }
 }
