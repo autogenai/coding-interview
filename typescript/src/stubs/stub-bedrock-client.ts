@@ -18,8 +18,12 @@ async function* stubGenerator(): AsyncGenerator<ConverseStreamOutput> {
   }
 }
 
-export function bedrockChatCompletion(
-  _: ConverseStreamCommandInput
-): Promise<AsyncIterable<ConverseStreamOutput>> {
-  return Promise.resolve(stubGenerator());
+export function bedrockChatCompletion(_: ConverseStreamCommandInput): {
+  confidence: number;
+  stream: AsyncIterable<ConverseStreamOutput>;
+} {
+  return {
+    confidence: (Math.floor(Math.random() * 10) + 1) / 10,
+    stream: stubGenerator(),
+  };
 }
